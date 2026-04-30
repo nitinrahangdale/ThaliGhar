@@ -19,16 +19,6 @@ type ExpenseFormValues = {
   payment_mode: "cash" | "online" | null;
 };
 
-enum Expense {
-  SALARY = "salary_expense",
-  KIRANA = "kirana",
-  SABJI = "sabji",
-  DISPOSAL = "disposal",
-  PAPAD = "papad",
-  WATERBOTTLE = "waterbottle",
-  EXTRA = "extra",
-}
-
 type FormValues = {
   date: string;
   cash_income: number;
@@ -246,6 +236,12 @@ export default function EntryPage() {
 
       await financeOps.upsertFinance(payload);
       setIsSuccess(true);
+
+      // Reset form for new entry after save
+      if (!nextDay) {
+        setEditDate(null);
+        reset({ ...defaults, date: today });
+      }
 
       setTimeout(() => setIsSuccess(false), 3000);
 

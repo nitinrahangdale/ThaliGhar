@@ -4,12 +4,29 @@ import { useAppStore } from '../../lib/store';
 export default function Header() {
   const { page, setPage, selectedMonth, setSelectedMonth } = useAppStore();
 
-  const months: string[] = [];
-  const now = new Date();
-  for (let i = 0; i < 12; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    months.push(d.toISOString().slice(0, 7));
-  }
+  // All months
+  const months = [
+    { num: 1, name: 'January' },
+    { num: 2, name: 'February' },
+    { num: 3, name: 'March' },
+    { num: 4, name: 'April' },
+    { num: 5, name: 'May' },
+    { num: 6, name: 'June' },
+    { num: 7, name: 'July' },
+    { num: 8, name: 'August' },
+    { num: 9, name: 'September' },
+    { num: 10, name: 'October' },
+    { num: 11, name: 'November' },
+    { num: 12, name: 'December' },
+  ];
+
+  // Parse current selected month
+  const [selectedYear, selectedMonthNum] = selectedMonth.split('-').map(Number);
+
+  const handleMonthChange = (year: number, monthNum: number) => {
+    const formattedMonth = `${year}-${String(monthNum).padStart(2, '0')}`;
+    setSelectedMonth(formattedMonth);
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800">
@@ -19,9 +36,9 @@ export default function Header() {
             <div className="w-9 h-9 rounded-xl bg-teal-500/20 flex items-center justify-center">
               <ChefHat className="w-5 h-5 text-teal-400" />
             </div>
-            <div className="hidden sm:block">
-              <h1 className="text-white font-semibold text-base leading-none">RestaurantIQ</h1>
-              <p className="text-slate-400 text-xs mt-0.5">Finance Dashboard</p>
+            <div>
+              <h1 className="text-white font-semibold text-sm sm:text-base leading-none">Kamdhenu Thali Kitchen</h1>
+              <p className="text-slate-400 text-xs mt-0.5 hidden sm:block">Finance Dashboard</p>
             </div>
           </div>
 
@@ -63,14 +80,15 @@ export default function Header() {
 
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-slate-400 hidden sm:block" />
+     
             <select
-              value={selectedMonth}
-              onChange={(e) => setSelectedMonth(e.target.value)}
+              value={selectedMonthNum}
+              onChange={(e) => handleMonthChange(selectedYear, Number(e.target.value))}
               className="bg-slate-800 border border-slate-700 text-slate-300 text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-teal-500"
             >
               {months.map((m) => (
-                <option key={m} value={m}>
-                  {new Date(m + '-01').toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}
+                <option key={m.num} value={m.num}>
+                  {m.name}
                 </option>
               ))}
             </select>

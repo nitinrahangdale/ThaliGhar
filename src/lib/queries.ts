@@ -30,6 +30,11 @@ export function deriveFinance(row: DailyFinanceRow): DailyFinanceDerived {
       expenses,
       total_profit,
     },
+    // Flatten income properties to top level
+    cash_income: income.cash_income,
+    online_income: income.online_income,
+    total_income: income.total_income,
+    total_profit,
     total_expense, 
     profit_percentage 
   };
