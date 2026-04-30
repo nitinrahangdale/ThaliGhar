@@ -77,7 +77,7 @@ export default function Dashboard() {
         <KPICard
           title="Cash in Hand (MTD)" value={mtdCashInHand}
           icon={Banknote}
-          subtitle="Cash on hand"
+          subtitle="Cash in hand"
         />
         <KPICard
           title="Online Income (MTD)" value={mtdOnlineIncome}
