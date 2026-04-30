@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { DollarSign, TrendingUp, TrendingDown, Percent, Loader2 } from 'lucide-react';
+import { DollarSign, TrendingUp, TrendingDown, Percent, Loader2, Banknote, Smartphone } from 'lucide-react';
 import { useAppStore } from '../lib/store';
 import KPICard from '../components/dashboard/KPICard';
 import DailyIncomeChart from '../components/dashboard/DailyIncomeChart';
 import IncomeSplitChart from '../components/dashboard/IncomeSplitChart';
 import ExpensePieChart from '../components/dashboard/ExpensePieChart';
 import ProfitTrendChart from '../components/dashboard/ProfitTrendChart';
-import FinanceTable from '../components/dashboard/FinanceTable';
 import { financeOps } from '../lib/queries';
 
 export default function Dashboard() {
@@ -33,6 +32,8 @@ export default function Dashboard() {
   }, [selectedMonth]);
 
   const mtdIncome = data.reduce((s, r) => s + (Number(r.data.income.total_income) || 0), 0);
+  const mtdCashInHand = data.reduce((s, r) => s + (Number(r.data.income.cash_in_hand) || 0), 0);
+  const mtdOnlineIncome = data.reduce((s, r) => s + (Number(r.data.income.online_income) || 0), 0);
   const mtdExpense = data.reduce((s, r) => s + (Number(r.total_expense) || 0), 0);
   const mtdProfit = mtdIncome - mtdExpense;
   const mtdProfitPct = mtdIncome > 0 ? (mtdProfit / mtdIncome) * 100 : 0;
@@ -67,11 +68,21 @@ export default function Dashboard() {
         </div>
       )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
         <KPICard
           title="Total Income (MTD)" value={mtdIncome}
           icon={DollarSign}
           subtitle={`${data.length} days recorded`}
+        />
+        <KPICard
+          title="Cash in Hand (MTD)" value={mtdCashInHand}
+          icon={Banknote}
+          subtitle="Cash on hand"
+        />
+        <KPICard
+          title="Online Income (MTD)" value={mtdOnlineIncome}
+          icon={Smartphone}
+          subtitle="Digital payments"
         />
         <KPICard
           title="Total Expenses (MTD)" value={mtdExpense}
