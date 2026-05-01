@@ -51,7 +51,7 @@ export const financeOps = {
     if (month) {
       const start = `${month}-01`;
       const [year, m] = month.split('-').map(Number);
-      const end = new Date(year, m, 0).toISOString().split('T')[0];
+      const end = new Date(Date.UTC(year, m, 0)).toISOString().split('T')[0];
       query = query.gte('date', start).lte('date', end);
     }
 
