@@ -22,34 +22,42 @@ export default function KPICard({ title, value, icon: Icon, format = 'currency',
   const TrendIcon = trend === 'up' ? TrendingUp : TrendingDown;
 
   return (
-    <div className={`relative overflow-hidden rounded-2xl border p-5 transition-all hover:scale-[1.01] ${
+    <div className={`relative overflow-hidden rounded-xl border p-3 transition-all hover:scale-[1.02] ${
       highlight
         ? 'bg-gradient-to-br from-teal-500/20 to-teal-600/10 border-teal-500/30'
         : 'bg-slate-900 border-slate-800'
     }`}>
-      <div className="flex items-start justify-between mb-4">
-        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-          highlight ? 'bg-teal-500/30' : 'bg-slate-800'
-        }`}>
-          <Icon className={`w-5 h-5 ${highlight ? 'text-teal-400' : 'text-slate-400'}`} />
-        </div>
-        {trend && trend !== 'neutral' && (
-          <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
-            trend === 'up' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'
-          }`}>
-            <TrendIcon className="w-3 h-3" />
-            {trend === 'up' ? 'Profit' : 'Loss'}
+      <div className="flex items-center justify-between gap-3">
+        {/* Left Column: Icon & Title */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-2">
+            <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+              highlight ? 'bg-teal-500/30' : 'bg-slate-800'
+            }`}>
+              <Icon className={`w-4 h-4 ${highlight ? 'text-teal-400' : 'text-slate-400'}`} />
+            </div>
+            {trend && trend !== 'neutral' && (
+              <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full shrink-0 ${
+                trend === 'up' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'
+              }`}>
+                <TrendIcon className="w-2.5 h-2.5" />
+                {trend === 'up' ? 'Profit' : 'Loss'}
+              </div>
+            )}
           </div>
-        )}
-      </div>
+          <p className="text-slate-400 text-xs font-medium leading-tight">{title}</p>
+          {subtitle && <p className="text-slate-500 text-xs mt-0.5 leading-tight">{subtitle}</p>}
+        </div>
 
-      <p className="text-slate-400 text-sm font-medium mb-1">{title}</p>
-      <p className={`text-2xl font-bold tracking-tight ${
-        isNegative ? 'text-rose-400' : highlight ? 'text-teal-300' : 'text-white'
-      }`}>
-        {formatValue(value, format)}
-      </p>
-      {subtitle && <p className="text-slate-500 text-xs mt-1">{subtitle}</p>}
+        {/* Right Column: Value */}
+        <div className="text-right shrink-0">
+          <p className={`text-xl font-bold tracking-tight ${
+            isNegative ? 'text-rose-400' : highlight ? 'text-teal-300' : 'text-white'
+          }`}>
+            {formatValue(value, format)}
+          </p>
+        </div>
+      </div>
 
       <div className={`absolute bottom-0 left-0 right-0 h-0.5 ${
         highlight ? 'bg-gradient-to-r from-teal-500 to-teal-300' : 'bg-slate-800'

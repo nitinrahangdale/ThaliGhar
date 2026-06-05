@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DollarSign, Loader2, TrendingUp, TrendingDown } from 'lucide-react';
+import { IndianRupee, Loader2, TrendingUp, TrendingDown } from 'lucide-react';
 import { useAppStore } from '../lib/store';
 import FinanceTable from '../components/dashboard/FinanceTable';
 import { financeOps } from '../lib/queries';
@@ -57,7 +57,7 @@ export default function FinanceTablePage() {
       ) : (
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center">
           <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center mx-auto mb-4">
-            <DollarSign className="w-8 h-8 text-slate-600" />
+            <IndianRupee className="w-8 h-8 text-slate-600" />
           </div>
           <h3 className="text-white font-semibold text-lg mb-2">No data for this month</h3>
           <p className="text-slate-400 text-sm">Start by adding your daily finance entries to see your finance table.</p>

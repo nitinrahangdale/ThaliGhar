@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DollarSign, TrendingUp, TrendingDown, Percent, Loader2, Banknote, Smartphone } from 'lucide-react';
+import { IndianRupee, TrendingUp, TrendingDown, Percent, Loader2, Banknote, Smartphone } from 'lucide-react';
 import { useAppStore } from '../lib/store';
 import KPICard from '../components/dashboard/KPICard';
 import DailyIncomeChart from '../components/dashboard/DailyIncomeChart';
@@ -70,29 +70,28 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
         <KPICard
-          title="Total Income (MTD)" value={mtdIncome}
-          icon={DollarSign}
+          title="Income" value={mtdIncome}
+          icon={IndianRupee}
           subtitle={`${data.length} days recorded`}
         />
         <KPICard
-          title="Cash in Hand (MTD)" value={mtdCashInHand}
+          title="Cash in Hand" value={mtdCashInHand}
           icon={Banknote}
-          subtitle="Cash in hand"
+          subtitle=""
         />
         <KPICard
-          title="Online Income (MTD)" value={mtdOnlineIncome}
+          title="Online" value={mtdOnlineIncome}
           icon={Smartphone}
           subtitle="Digital payments"
         />
         <KPICard
-          title="Total Expenses (MTD)" value={mtdExpense}
+          title="Expenses" value={mtdExpense}
           icon={TrendingDown}
-          subtitle="All categories combined"
+          subtitle=""
         />
         <KPICard
-          title="Net Profit (MTD)" value={mtdProfit}
+          title="Net Profit" value={mtdProfit}
           icon={TrendingUp}
-          trend={mtdProfit >= 0 ? 'up' : 'down'}
           highlight={mtdProfit >= 0}
         />
         <KPICard
@@ -105,19 +104,19 @@ export default function Dashboard() {
 
       {data.length > 0 ? (
         <>
+          <ExpensePieChart data={data} />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <DailyIncomeChart data={data} />
             <IncomeSplitChart data={data} />
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-1 gap-4">
             <ProfitTrendChart data={data} />
-            <ExpensePieChart data={data} />
           </div>
         </>
       ) : (
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center">
           <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center mx-auto mb-4">
-            <DollarSign className="w-8 h-8 text-slate-600" />
+            <IndianRupee className="w-8 h-8 text-slate-600" />
           </div>
           <h3 className="text-white font-semibold text-lg mb-2">No data for this month</h3>
           <p className="text-slate-400 text-sm mb-4">Start by adding your daily finance entries to see insights and analytics.</p>
